@@ -1,0 +1,14 @@
+bin/
+executable-jars/
+tmp/
+.metadata
+.classpath
+.project
+.DS_Store
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.factorypath
