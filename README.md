@@ -4,7 +4,10 @@
 
 SERNAlign builds Structural Sequences starting from RNA secondary structures 
 with arbitrary pseudoknots and computes SERNA Distance by aligning two 
-Structural Sequences.
+Structural Sequences. Structural sequences are an abstraction of the arc diagram 
+of a secondary structure in which the sequence of nucleotides is not considered 
+and the topology of the arcs is represented by a numerical sequence. For each
+RNA secondary structure there is only ony corresponding structural sequence. 
 
 If you use SERNAlign please cite:
 
@@ -28,9 +31,72 @@ of the primary sequence) and i_k < j_k + 1 for all k.
 All lines starting with \# are considered comments. File format is automatically
 detected from the text file, any extension is accepted. 
 
-## SERNAAlign is distributed with two executable jar files
-* SERNAlign.jar (basic comparator and tree builder) and 
-* SERNAlignWorkbench.jar (workbench comparator)
+# Installation
+
+Download the zip file of last version of SERNAlign from folder `download` at <https://github.com/bdslab/sernalign/>
+
+Direct link: <https://github.com/bdslab/sernalign/tree/master/download>
+
+and put it in any position of your drive. 
+
+Unzip the file with the facilities of your operating system. The folder 
+`SERNAlign-<VersionNumber>` is created containing the following files:
+
+- SERNAlign.jar --- executable jar of the basic SERNAlign comparison
+- SERNAlignWorkbench.jar --- executable jar for the SERNAlign workbench comparator
+- examples --- folder containing sample input and output files
+- INSTALL.txt --- information on SERNAlign installation
+- README.md --- SERNAlign description and usage information
+- COPYING.txt --- copyright information
+- LICENSE --- full GNU GPL Version 3 License
+- CHANGELOG.txt --- information about the evolution of SERNAlign versions
+
+The executable jar files runs on every Linux, Windows and Mac OS platform
+in which a Java SE Runtime Environment 8 is installed. 
+
+For information and installing the Java Runtime Environment see
+<http://www.oracle.com/technetwork/java/javase/downloads/index.html>
+
+## Using SERNAlign
+
+Open a terminal window of your operating system and use the change directory 
+(cd) command to move to a folder in which the executable jar(s) and the
+configuration file(s) were placed. To launch the basic SERNAlign comparator 
+digit:
+
+`> java -jar SERNAlign.jar <options>`
+
+The following <options> can be used:
+
+	-a,--align <input-file1 input-file2>   Align two given structures
+	                                       producing an alignment and
+	                                       distance
+	-d,--outdist                           Output only distance, no alignment
+                                           (works only with option -a)
+	-h,--help                              Show usage information
+	-i,--info                              Show license and other info
+	-o,--out <output-file>                 Output result on the given file
+                                           instead of standard output
+	-s,--struct <input-file>               Produce the structural sequence
+                                           corresponding to the given
+                                           structure
+
+## Using SERNAlignWorkbench
+
+Open a terminal window of your operating system and use the change directory 
+(cd) command to move to a folder in which the executable jar(s) were placed. 
+To launch the basic SERNAlignWorkbench comparator digit:
+
+`> java -jar SERNAlignWorkbench.jar <options>`
+
+The following <options> can be used:
+
+	-f,--input <input-folder>     Process the files in the given folder
+	-h,--help                     Show usage information
+	-i,--info                     Show license and other info
+	-o,--output <file-1 file-2>   Output structure descriptions on file-1 and
+                                  comparison results on file-2 instead of
+                                  generating the default ouput files
 
 ## SERNAlign.jar usage examples
 
@@ -92,85 +158,14 @@ The latter contains, for each pair of processed structures, the SERNA
 Distance between the two structures and execution time information.
 
 * `>java -jar SERNAlignWorkbench.jar -f TestWorkBench1 -o stucts.csv
-cmpr.csv -n my-config.txt`
+cmpr.csv`
 
 Processes all the files in folder `TestWorkBench1` as above but produce
 the description of processed structures in file `structs.csv` and
-comparison results in file `cmpr.csv`. Instead of using
-`SERNAling-config.txt` default configuration file, use `my-config.txt` as
-configuration file.
+comparison results in file `cmpr.csv`. 
 
 See folder `examples` for some sample input folders containing structures 
 coming from public databases.
-
-# Installation
-
-Download the zip file of last version of SERNAlign from folder `download` at <https://github.com/bdslab/sernalign/>
-
-Direct link: <https://github.com/bdslab/sernalign/tree/master/download>
-
-and put it in any position of your drive. 
-
-Unzip the file with the facilities of your operating system. The folder 
-`SERNAlign-<VersionNumber>` is created containing the following files:
-
-- SERNAlign.jar --- executable jar of the basic SERNAlign comparison
-- SERNAlignWorkbench.jar --- executable jar for the SERNAlign workbench comparator
-- examples --- folder containing sample input and output files
-- INSTALL.txt --- information on SERNAlign installation
-- README.md --- SERNAlign description and usage information
-- COPYING.txt --- copyright information
-- LICENSE --- full GNU GPL Version 3 License
-- CHANGELOG.txt --- information about the evolution of SERNAlign versions
-
-The executable jar files runs on every Linux, Windows and Mac OS platform
-in which a Java SE Runtime Environment 8 is installed. 
-
-For information and installing the Java Runtime Environment see
-<http://www.oracle.com/technetwork/java/javase/downloads/index.html>
-
-# Use
-
-## Using SERNAlign
-
-Open a terminal window of your operating system and use the change directory 
-(cd) command to move to a folder in which the executable jar(s) and the
-configuration file(s) were placed. To launch the basic SERNAlign comparator 
-digit:
-
-`> java -jar SERNAlign.jar <options>`
-
-The following <options> can be used:
-
-	-a,--align <input-file1 input-file2>   Align two given structures
-	                                       producing an alignment and
-	                                       distance
-	-d,--outdist                           Output only distance, no alignment
-                                           (works only with option -a)
-	-h,--help                              Show usage information
-	-i,--info                              Show license and other info
-	-o,--out <output-file>                 Output result on the given file
-                                           instead of standard output
-	-s,--struct <input-file>               Produce the structural sequence
-                                           corresponding to the given
-                                           structure
-
-## Using SERNAlignWorkbench
-
-Open a terminal window of your operating system and use the change directory 
-(cd) command to move to a folder in which the executable jar(s) were placed. 
-To launch the basic SERNAlignWorkbench comparator digit:
-
-`> java -jar SERNAlignWorkbench.jar <options>`
-
-The following <options> can be used:
-
-	-f,--input <input-folder>     Process the files in the given folder
-	-h,--help                     Show usage information
-	-i,--info                     Show license and other info
-	-o,--output <file-1 file-2>   Output structure descriptions on file-1 and
-                                  comparison results on file-2 instead of
-                                  generating the default ouput files
 
 # Copyright and License
 
