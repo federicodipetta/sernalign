@@ -1,6 +1,7 @@
 bin/
 executable-jars/
 tmp/
+.settings
 .metadata
 .classpath
 .project
