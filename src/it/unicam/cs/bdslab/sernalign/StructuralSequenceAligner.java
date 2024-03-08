@@ -144,8 +144,8 @@ public class StructuralSequenceAligner {
 	    /*
 	     * insert elements into the empty sequence towards y 
 	     */
-	    for (int k = j; k > 0 ; k--)
-		this.alignment.addFirst(new EditOperation(null,
+	    for (int k = 1; k <= j ; k++)
+		this.alignment.add(new EditOperation(null,
 			this.y.getStructuralSequence()[k - 1]));
 	    /* Return */
 	    return;
@@ -154,7 +154,7 @@ public class StructuralSequenceAligner {
 	     * delete elements of x towards the empty sequence
 	     */
 	    for (int k = i; k > 0; k--)
-		this.alignment.addFirst(new EditOperation(
+		this.alignment.add(new EditOperation(
 			this.x.getStructuralSequence()[k - 1], null));
 	    /* Return */
 	    return;
