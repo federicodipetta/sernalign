@@ -17,9 +17,10 @@ public class StructuralSequenceBuilder {
 
         return new StructuralSequence(
                 editOperations.stream()
-                    .filter(Objects::nonNull)
-                    .mapToInt(EditOperation::getJ)
-                    .toArray()
+                        .map(EditOperation::getJ)
+                        .filter(Objects::nonNull)
+                        .mapToInt(Integer::intValue)
+                        .toArray()
         );
     }
 

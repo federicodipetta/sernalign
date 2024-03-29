@@ -79,15 +79,17 @@ public class StructuralSequenceAligner3 {
 
     private Operation getOperation(int xi,int yj ,int i, int j ){
         int min = getMin(xi,yj,i,j);
+        if(min == matrix[i-1][j-1])
+            return Operation.Match;
+        if(min == matrix[i-1][j-1] + 1)
+            return Operation.Replace;
         if(min == matrix[i-1][j] + 1 ){
             return Operation.Delete;
         };
         if(min == matrix[i][j-1] + 1){
             return Operation.Insert;
         }
-        if(min == matrix[i-1][j-1])
-            return Operation.Match;
-        return Operation.Replace;
+        return Operation.Delete;
     }
 
     private int getMin(int xi, int yj, int i, int j) {
@@ -133,16 +135,16 @@ public class StructuralSequenceAligner3 {
             Operation operation = operationsMatrix[i][j];
             switch (operation){
                 case Match, Replace -> {
-                    editOperations.add(new EditOperation(i-1,j-1));
+                    editOperations.add(new EditOperation(s1.getStructuralSequence()[i-1], s2.getStructuralSequence()[j-1]));
                     i--;
                     j--;
                 }
                 case Insert -> {
-                    editOperations.add(new EditOperation(i,j-1));
+                    editOperations.add(new EditOperation(null,s2.getStructuralSequence()[j-1]));
                     j--;
                 }
                 case Delete -> {
-                    editOperations.add(new EditOperation(i-1,j));
+                    editOperations.add(new EditOperation(s1.getStructuralSequence()[i-1],null));
                     i--;
                 }
             }
