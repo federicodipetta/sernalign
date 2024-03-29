@@ -1,6 +1,9 @@
 bin/
 executable-jars/
 tmp/
+.idea
+out
+sernalign.iml
 .settings
 .metadata
 .classpath

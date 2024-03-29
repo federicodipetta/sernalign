@@ -20,7 +20,9 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.models;
+
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructure;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,6 +61,15 @@ public class StructuralSequence {
 	this.tail = null;
 	buildSequence();
     }
+
+	/**
+	 * build a structural sequence from an array of integer
+	 * @warning this method is usable only for testing purposes
+	 */
+	public StructuralSequence( int[] structuralSequence) {
+		this.secondaryStructure = new RNASecondaryStructure();
+		this.structuralSequence = structuralSequence;
+	}
 
     /**
      * @return the original RNA secondary structure

@@ -20,7 +20,9 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.models;
+
+import it.unicam.cs.bdslab.sernalign.antlr.exception.RNAInputFileParserException;
 
 /**
  * Simple class whose objects contain a pair of indexes that identify a weak
@@ -83,7 +85,7 @@ public class WeakBond implements Comparable<WeakBond> {
      * @throws IllegalArgumentException if the passed WeakBond is equal to
      *                                  this WeakBond
      */
-    protected boolean crossesWith(WeakBond wb) {
+	public boolean crossesWith(WeakBond wb) {
 	if (wb == null)
 	    throw new NullPointerException("Passed Weak Bond was null");
 	if (this.equals(wb))

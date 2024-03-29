@@ -20,14 +20,15 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructure;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureFileReader;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for the class RNASecondaryStructure

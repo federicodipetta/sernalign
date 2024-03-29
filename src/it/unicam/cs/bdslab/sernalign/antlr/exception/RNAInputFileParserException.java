@@ -20,29 +20,42 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
-
-import org.antlr.v4.runtime.BaseErrorListener;
-import org.antlr.v4.runtime.RecognitionException;
-import org.antlr.v4.runtime.Recognizer;
+package it.unicam.cs.bdslab.sernalign.antlr.exception;
 
 /**
- * Class for transforming ANTLR 4 Syntax Errors into
- * RNAInputFileParserExceptions.
+ * Exception to signal any syntax error in input files containing the
+ * description of an RNA secondary structure in any supported format.
  * 
  * @author Luca Tesei
  *
  */
-public class RNASecondaryStructureFileReaderErrorListener
-	extends BaseErrorListener {
+public class RNAInputFileParserException extends RuntimeException {
 
-    @Override
-    public void syntaxError(Recognizer<?, ?> recognizer,
-	    Object offendingSymbol, int line, int charPositionInLine,
-	    String msg, RecognitionException e) {
-	String m = "Line " + line + " Character " + (charPositionInLine + 1)
-		+ ": " + msg;
-	throw new RNAInputFileParserException(m);
+    private static final long serialVersionUID = 4540612561494091099L;
+
+    public RNAInputFileParserException() {
+    }
+
+    /**
+     * @param message Description message
+     */
+    public RNAInputFileParserException(String message) {
+	super(message);
+    }
+
+    /**
+     * @param cause Cause of the exception
+     */
+    public RNAInputFileParserException(Throwable cause) {
+	super(cause);
+    }
+
+    /**
+     * @param message Description message
+     * @param cause   Cause of the exception
+     */
+    public RNAInputFileParserException(String message, Throwable cause) {
+	super(message, cause);
     }
 
 }

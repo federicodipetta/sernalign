@@ -1,7 +1,8 @@
 // Generated from RNASecondaryStructure.g4 by ANTLR 4.9.3
 
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.antlr;
 
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

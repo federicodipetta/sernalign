@@ -20,13 +20,16 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.util.Arrays;
 
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructure;
+import it.unicam.cs.bdslab.sernalign.models.StructuralSequence;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureFileReader;
 import org.junit.jupiter.api.Test;
 
 class StructuralSequenceTest {

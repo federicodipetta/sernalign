@@ -20,13 +20,18 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.cli;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import it.unicam.cs.bdslab.sernalign.antlr.exception.RNAInputFileParserException;
+import it.unicam.cs.bdslab.sernalign.models.StructuralSequence;
+import it.unicam.cs.bdslab.sernalign.models.StructuralSequenceAligner;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructure;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureFileReader;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;

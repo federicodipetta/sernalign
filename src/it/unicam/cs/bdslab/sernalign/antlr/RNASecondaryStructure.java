@@ -20,7 +20,10 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.antlr;
+
+import it.unicam.cs.bdslab.sernalign.antlr.exception.RNAInputFileParserException;
+import it.unicam.cs.bdslab.sernalign.models.WeakBond;
 
 import java.util.ArrayList;
 import java.util.Collections;

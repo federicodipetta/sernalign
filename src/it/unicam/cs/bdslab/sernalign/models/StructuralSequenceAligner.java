@@ -21,7 +21,7 @@
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.models;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -127,7 +127,7 @@ public class StructuralSequenceAligner {
     /*
      * For testing purposes
      */
-    protected int[][] getMatrix() {
+    public int[][] getMatrix() {
 	return this.m;
     }
 

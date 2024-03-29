@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.models;
 
 /**
  * A simple class to represent an edit operation. It is a pair (i,j), if i and

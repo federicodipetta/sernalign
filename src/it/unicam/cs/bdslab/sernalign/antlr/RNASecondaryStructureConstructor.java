@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU General Public License
  * along with SERNAlign. If not, see <http://www.gnu.org/licenses/>.
  */
-package it.unicam.cs.bdslab.sernalign;
+package it.unicam.cs.bdslab.sernalign.antlr;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,21 +28,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.BondsContinueContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.BondsEndContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.BpseqContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.BpseqFormatContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.BpseqLineBondContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.BpseqLineUnpairedContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.CtContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.CtFormatContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.CtLineBondContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.CtLineUnpairedContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.EdbnOrAasFormatContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.EdbnsContinueContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.EdbnsEndContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.SequenceContinueContext;
-import it.unicam.cs.bdslab.sernalign.RNASecondaryStructureParser.SequenceEndContext;
+import it.unicam.cs.bdslab.sernalign.antlr.exception.RNAInputFileParserException;
+import it.unicam.cs.bdslab.sernalign.models.WeakBond;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.BondsContinueContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.BondsEndContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.BpseqContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.BpseqFormatContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.BpseqLineBondContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.BpseqLineUnpairedContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.CtContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.CtFormatContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.CtLineBondContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.CtLineUnpairedContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.EdbnOrAasFormatContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.EdbnsContinueContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.EdbnsEndContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.SequenceContinueContext;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureParser.SequenceEndContext;
 
 /**
  * Construct an RNASecondaryStructure object while visiting an
