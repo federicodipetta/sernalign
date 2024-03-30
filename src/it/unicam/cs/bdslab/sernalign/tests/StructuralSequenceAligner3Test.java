@@ -54,4 +54,14 @@ public class StructuralSequenceAligner3Test {
         assertEquals(4, aligner.getDistance());
         assertTrue(aligner.getOptimalAlignment().stream().allMatch(op -> op.getJ() == null));
     }
+    @Test
+    public void optimalAlignmentfor() {
+        StructuralSequence s1 = new StructuralSequence(new int[]{1, 2, 3,4,5});
+        StructuralSequence s2 = new StructuralSequence(new int[]{1,1,2,3,4});
+
+        StructuralSequenceAligner3 aligner = new StructuralSequenceAligner3(s1, s2);
+
+        assertEquals(2, aligner.getDistance());
+
+    }
 }

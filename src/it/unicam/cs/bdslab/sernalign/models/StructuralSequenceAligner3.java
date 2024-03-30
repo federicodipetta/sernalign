@@ -70,7 +70,7 @@ public class StructuralSequenceAligner3 {
                 }
                 case Delete -> {
                     matrix[i][j] = matrix[i-1][j]+1;
-                    actualIndexMatrix[i][j] =actualIndexMatrix[i-1][j];
+                    actualIndexMatrix[i][j] = actualIndexMatrix[i-1][j];
                     operationsMatrix[i][j] = Operation.Delete;
                 }
             }
@@ -78,21 +78,36 @@ public class StructuralSequenceAligner3 {
     }
 
     private Operation getOperation(int xi,int yj ,int i, int j ){
-        int min = getMin(xi,yj,i,j);
-        if(min == matrix[i-1][j-1])
-            return Operation.Match;
-        if(min == matrix[i-1][j-1] + 1)
-            return Operation.Replace;
-        if(min == matrix[i-1][j] + 1 ){
-            return Operation.Delete;
-        };
-        if(min == matrix[i][j-1] + 1){
-            return Operation.Insert;
+        int min = Integer.MAX_VALUE;
+        Operation op = Operation.Delete;
+        if(xi == yj && validateOperation(Operation.Match,xi,yj,i,j) && min > matrix[i-1][j-1]){
+            min = matrix[i-1][j-1];
+            op = Operation.Match;
         }
-        return Operation.Delete;
+
+
+        if(min > matrix[i-1][j-1] + 1 && validateOperation(Operation.Replace,xi,yj,i,j)){
+            min = matrix[i-1][j-1] + 1;
+            op = Operation.Replace;
+        }
+
+
+        if(min > matrix[i-1][j] + 1 && validateOperation(Operation.Delete,xi,yj,i,j)){
+            min = matrix[i-1][j] + 1;
+            op = Operation.Delete;
+        }
+
+        if(min > matrix[i][j-1] + 1 && validateOperation(Operation.Insert,xi,yj,i,j)){
+            min = matrix[i][j-1] + 1;
+            op = Operation.Insert;
+        }
+
+
+        return op;
     }
 
     private int getMin(int xi, int yj, int i, int j) {
+        //doesn't work
         int replace = Integer.MAX_VALUE;
         int delete = Integer.MAX_VALUE;
         int insert = Integer.MAX_VALUE;
