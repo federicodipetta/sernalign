@@ -2,6 +2,7 @@ package it.unicam.cs.bdslab.sernalign.tests;
 
 import it.unicam.cs.bdslab.sernalign.models.StructuralSequence;
 import it.unicam.cs.bdslab.sernalign.models.StructuralSequenceAligner3;
+import it.unicam.cs.bdslab.sernalign.models.utils.Printer;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
@@ -60,8 +61,19 @@ public class StructuralSequenceAligner3Test {
         StructuralSequence s2 = new StructuralSequence(new int[]{1,1,2,3,4});
 
         StructuralSequenceAligner3 aligner = new StructuralSequenceAligner3(s1, s2);
-
+        Printer.printMatrix(aligner.getMatrix());
         assertEquals(2, aligner.getDistance());
+
+    }
+
+    @Test
+    public void optimalAlignmentfor2() {
+        StructuralSequence s1 = new StructuralSequence(new int[]{1,2,3,1,9});
+        StructuralSequence s2 = new StructuralSequence(new int[]{1});
+
+        StructuralSequenceAligner3 aligner = new StructuralSequenceAligner3(s1, s2);
+        Printer.printTest(aligner,s1,s2);
+        assertEquals(4, aligner.getDistance());
 
     }
 }

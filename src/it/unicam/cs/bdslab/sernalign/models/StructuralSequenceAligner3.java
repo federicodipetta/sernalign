@@ -28,6 +28,9 @@ public class StructuralSequenceAligner3 {
         align();
     }
 
+    public int[][] getMatrix() {
+        return matrix;
+    }
 
     public List<EditOperation> getOptimalAlignment() {
         return operations;
@@ -137,7 +140,7 @@ public class StructuralSequenceAligner3 {
             case Match,Replace -> ContextSet.contextSetOf(i).contains(xi)
                     && ContextSet.contextSetOf(actualIndexMatrix[i-1][j-1]).contains(yj);
             case Insert -> ContextSet.contextSetOf(actualIndexMatrix[i][j-1]).contains(yj);
-            case Delete -> ContextSet.contextSetOf(actualIndexMatrix[i-1][j]).contains(xi);
+            case Delete -> true;//ContextSet.contextSetOf(actualIndexMatrix[i-1][j]).contains(xi); controllare
         };
 
     }

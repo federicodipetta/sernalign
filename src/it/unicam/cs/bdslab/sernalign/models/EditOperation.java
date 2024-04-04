@@ -65,4 +65,8 @@ public class EditOperation {
 	return j;
     }
 
+    @Override
+    public String toString() {
+        return "(" + (i==null?"-" : i ) + "," + (j==null?"-" : j ) + ")";
+    }
 }
