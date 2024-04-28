@@ -7,7 +7,7 @@ import java.util.List;
  * this class is used to align two structural sequences
  *
  */
-public class StructuralSequenceAligner2 {
+public class StructuralSequenceAligner2 implements IStructuralSequenceAligner{
 
     private List<EditOperation> editOperations;
     private int distance;
@@ -20,22 +20,36 @@ public class StructuralSequenceAligner2 {
         this.editOperations = new ArrayList<>();
         this.distance = 0;
         //sia s1 la più corta tra le sequenze strutturali
-        this.s1 = s1.getStructuralSequence().length < s2.getStructuralSequence().length ? s1 : s2;
-        this.s2 = s1.getStructuralSequence().length < s2.getStructuralSequence().length ? s2 : s1;
+        this.s1 = s1;
+        this.s2 = s2;
+
         align(this.s1,this.s2);
     }
 
     private void align(StructuralSequence s1,StructuralSequence s2){
         //risolvo la prima volta la matrice con prendendo le sottosequenze di s1 ed s2 di lunghezza s1
-        StructuralSequence subSequence = getSubSequence(s2,s1.getStructuralSequence().length);
-        StructuralSequenceAligner aligner = new StructuralSequenceAligner(s1,subSequence);
-        this.matrix = aligner.getMatrix();
-        this.editOperations = aligner.getOptimalAlignment();
-        //aggiungo le operazioni di inserimento per le lettere rimanenti
-        for(int i = s1.getStructuralSequence().length; i < s2.getStructuralSequence().length; i++){
-            this.editOperations.add(new EditOperation(null,s2.getStructuralSequence()[i]));
+        if(s1.getStructuralSequence().length < s2.getStructuralSequence().length){
+            StructuralSequence subSequence = getSubSequence(s2,s1.getStructuralSequence().length);
+            StructuralSequenceAligner aligner = new StructuralSequenceAligner(s1,subSequence);
+            this.matrix = aligner.getMatrix();
+            this.editOperations = aligner.getOptimalAlignment();
+            //aggiungo le operazioni di inserimento per le lettere rimanenti
+            for(int i = s1.getStructuralSequence().length; i < s2.getStructuralSequence().length; i++){
+                this.editOperations.add(new EditOperation(null,s2.getStructuralSequence()[i]));
+            }
+
+        }else {
+            StructuralSequence subSequence = getSubSequence(s1,s2.getStructuralSequence().length);
+            StructuralSequenceAligner aligner = new StructuralSequenceAligner(s2,subSequence);
+            this.matrix = aligner.getMatrix();
+            this.editOperations = aligner.getOptimalAlignment();
+            //aggiungo le operazioni di inserimento per le lettere rimanenti
+            for(int i = s2.getStructuralSequence().length; i < s1.getStructuralSequence().length; i++){
+                this.editOperations.add(new EditOperation(s1.getStructuralSequence()[i],null));
+            }
         }
-        this.distance = aligner.getDistance()+s2.getStructuralSequence().length-s1.getStructuralSequence().length;
+        this.distance = matrix[matrix.length-1][matrix[0].length-1]
+                + Math.abs(s1.getStructuralSequence().length - s2.getStructuralSequence().length);
 
     }
 
@@ -57,6 +71,11 @@ public class StructuralSequenceAligner2 {
 
     public int getDistance() {
         return distance;
+    }
+
+    @Override
+    public List<EditOperation> getOptimalAlignment() {
+        return getEditOperations();
     }
 
     public StructuralSequence getS1() {

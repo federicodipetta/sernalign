@@ -57,7 +57,7 @@ public class StructuralSequenceAligner2Test {
         Printer.printMatrix(aligner.getMatrix());
         Printer.printEditOperations(aligner.getEditOperations());
         assertEquals(4, aligner.getDistance());
-        assertTrue(aligner.getEditOperations().stream().allMatch(op -> op.getI() == null));
+        assertTrue(aligner.getEditOperations().stream().allMatch(op -> op.getJ() == null));
     }
     @Test
     public void optimalAlignmentfor() {
@@ -68,6 +68,20 @@ public class StructuralSequenceAligner2Test {
         Printer.printMatrix(aligner.getMatrix());
 
         assertEquals(2, aligner.getDistance());
+    }
+    @Test
+    public void optimalSymmetricResult() {
+        StructuralSequence s1 = new StructuralSequence(new int[]{1, 2, 3, 4});
+        StructuralSequence s2 = new StructuralSequence(new int[]{1, 1});
+        StructuralSequenceAligner2 aligner = new StructuralSequenceAligner2(s1, s2);
+        Printer.printMatrix(aligner.getMatrix());
+        StructuralSequenceAligner2 aligner2 = new StructuralSequenceAligner2(s2, s1);
+        Printer.printMatrix(aligner2.getMatrix());
+
+
+        assertEquals(3, aligner.getDistance());
+        assertEquals(3, aligner2.getDistance());
+
     }
 
     @Test

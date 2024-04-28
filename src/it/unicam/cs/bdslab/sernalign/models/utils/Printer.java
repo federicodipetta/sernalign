@@ -60,6 +60,12 @@ public class Printer {
         System.out.println("Distance: "+aligner.getDistance());
     }
 
+    public static void printTest(IStructuralSequenceAligner aligner , StructuralSequence s1, StructuralSequence s2) {
+        printHelper(s1, s2, aligner.getMatrix());
+        Printer.printEditOperations(aligner.getOptimalAlignment());
+        System.out.println("Distance: "+aligner.getDistance());
+    }
+
     private static void printHelper(StructuralSequence s1, StructuralSequence s2, int[][] matrix) {
         System.out.println("S1: ");
         Arrays.stream(s1.getStructuralSequence()).forEach(x->System.out.print(x+" "));

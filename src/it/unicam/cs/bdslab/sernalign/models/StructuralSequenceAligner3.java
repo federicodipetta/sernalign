@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 /**
  * This class is used to align two structural sequences, aware of the actual index of the edits
  */
-public class StructuralSequenceAligner3 {
+public class StructuralSequenceAligner3 implements IStructuralSequenceAligner{
     private List<EditOperation> operations;
     private StructuralSequence s1;
     private StructuralSequence s2;
@@ -137,9 +137,9 @@ public class StructuralSequenceAligner3 {
 
     private boolean validateOperation(Operation operation, int xi,int yj, int i, int j){
         return switch (operation) {
-            case Match,Replace -> ContextSet.contextSetOf(i).contains(xi)
-                    && ContextSet.contextSetOf(actualIndexMatrix[i-1][j-1]).contains(yj);
-            case Insert -> ContextSet.contextSetOf(actualIndexMatrix[i][j-1]).contains(yj);
+            case Match,Replace -> ContextSet.contextSetLimit(j)>=xi
+                    && ContextSet.contextSetLimit(actualIndexMatrix[i-1][j-1]) >=yj;
+            case Insert -> ContextSet.contextSetLimit(actualIndexMatrix[i][j-1])>=yj;
             case Delete -> true;//ContextSet.contextSetOf(actualIndexMatrix[i-1][j]).contains(xi); controllare
         };
 

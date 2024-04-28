@@ -32,7 +32,7 @@ import java.util.List;
  * @author Luca Tesei
  *
  */
-public class StructuralSequenceAligner {
+public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 
     private final StructuralSequence x;
     private final StructuralSequence y;

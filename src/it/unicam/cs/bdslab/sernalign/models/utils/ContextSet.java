@@ -17,4 +17,9 @@ public class ContextSet {
         return IntStream.rangeClosed(1,2*i-1)
                 .collect(HashSet::new, HashSet::add, HashSet::addAll);
     }
+
+    public static int contextSetLimit(int i)
+    {
+        return 2*i-1;
+    }
 }
