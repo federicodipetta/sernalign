@@ -3,11 +3,7 @@ package it.unicam.cs.bdslab.sernalign.models;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * this class is used to align two structural sequences
- *
- */
-public class StructuralSequenceAligner2 implements IStructuralSequenceAligner{
+public class StructuralSequenceAligner5 implements IStructuralSequenceAligner {
 
     private List<EditOperation> editOperations;
     private int distance;
@@ -16,7 +12,7 @@ public class StructuralSequenceAligner2 implements IStructuralSequenceAligner{
 
     private int[][] matrix;
 
-    public StructuralSequenceAligner2(StructuralSequence s1, StructuralSequence s2) {
+    public StructuralSequenceAligner5(StructuralSequence s1, StructuralSequence s2) {
         this.editOperations = new ArrayList<>();
         this.distance = 0;
         //sia s1 la più corta tra le sequenze strutturali
@@ -30,7 +26,7 @@ public class StructuralSequenceAligner2 implements IStructuralSequenceAligner{
         //risolvo la prima volta la matrice con prendendo le sottosequenze di s1 ed s2 di lunghezza s1
         if(s1.getStructuralSequence().length < s2.getStructuralSequence().length){
             StructuralSequence subSequence = getSubSequence(s2,s1.getStructuralSequence().length);
-            StructuralSequenceAligner aligner = new StructuralSequenceAligner(s1,subSequence);
+            StructuralSequenceAligner4 aligner = new StructuralSequenceAligner4(s1,subSequence);
             this.matrix = aligner.getMatrix();
             this.editOperations = aligner.getOptimalAlignment();
             //aggiungo le operazioni di inserimento per le lettere rimanenti
@@ -40,7 +36,7 @@ public class StructuralSequenceAligner2 implements IStructuralSequenceAligner{
 
         }else {
             StructuralSequence subSequence = getSubSequence(s1,s2.getStructuralSequence().length);
-            StructuralSequenceAligner aligner = new StructuralSequenceAligner(subSequence,s2);
+            StructuralSequenceAligner4 aligner = new StructuralSequenceAligner4(s2,subSequence);
             this.matrix = aligner.getMatrix();
             this.editOperations = aligner.getOptimalAlignment();
             //aggiungo le operazioni di inserimento per le lettere rimanenti
@@ -85,4 +81,5 @@ public class StructuralSequenceAligner2 implements IStructuralSequenceAligner{
     public StructuralSequence getS2() {
         return s2;
     }
+
 }

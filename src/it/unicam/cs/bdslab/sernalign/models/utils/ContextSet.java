@@ -22,4 +22,9 @@ public class ContextSet {
     {
         return 2*i-1;
     }
+
+    public static boolean isInSet(int index, int contextIndex)
+    {
+        return index>=1 && index <= contextSetLimit(contextIndex);
+    }
 }

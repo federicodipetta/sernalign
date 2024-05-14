@@ -21,11 +21,11 @@ public class StructuralSequenceComparisonTest {
         List<Integer> distance4 = new ArrayList<>();
         double average1 = 0 , average2 = 0 ,averageSum = 0;
         double averageTime1 = 0 , averageTime2 = 0 ,averageTime3 = 0;
-        int n= 50;
+        int n= 500;
         for(int i = 0; i < n; i++){
 
-            int length1 = random.nextInt(15)+1;
-            int length2 = random.nextInt(15)+1;
+            int length1 = random.nextInt(200)+1;
+            int length2 = random.nextInt(200)+1;
             StructuralSequence s1 = RandomSQBuilder.buildRandomSQ(length1,random.nextInt());
             StructuralSequence s2 = RandomSQBuilder.buildRandomSQ(length2,random.nextInt());
             average1 += s1.getStructuralSequence().length;
@@ -55,13 +55,13 @@ public class StructuralSequenceComparisonTest {
             distance2.add(aligner2.getDistance());
             distance3.add(aligner3.getDistance());
             distance4.add(aligner4.getDistance());
-            System.out.println("Test "+i);
-            System.out.println("Aligner 1");
-            Printer.printTest(aligner1,s1,s2);
-            System.out.println("Aligner 2");
-            Printer.printTest(aligner2,s1,s2);
-            System.out.println("Aligner 3");
-            Printer.printTest(aligner3,s1,s2);
+//            System.out.println("Test "+i);
+//            System.out.println("Aligner 1");
+//            Printer.printTest(aligner1,s1,s2);
+//            System.out.println("Aligner 2");
+//            Printer.printTest(aligner2,s1,s2);
+//            System.out.println("Aligner 3");
+//            Printer.printTest(aligner3,s1,s2);
         }
         System.out.println("---------------------------------------------------------");
         System.out.println("FINAL RESULT COMPARISON ");

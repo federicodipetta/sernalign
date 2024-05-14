@@ -1,5 +1,6 @@
 package it.unicam.cs.bdslab.sernalign.tests;
 
+import it.unicam.cs.bdslab.sernalign.models.AlignerChecker;
 import it.unicam.cs.bdslab.sernalign.models.StructuralSequence;
 import it.unicam.cs.bdslab.sernalign.models.StructuralSequenceAligner3;
 import it.unicam.cs.bdslab.sernalign.models.utils.Printer;
@@ -21,6 +22,7 @@ public class StructuralSequenceAligner3Test {
 
         assertEquals(0, aligner.getDistance());
         assertTrue(aligner.getOptimalAlignment().stream().allMatch(op -> Objects.equals(op.getI(), op.getJ())));
+        assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
 
     @Test
@@ -32,6 +34,7 @@ public class StructuralSequenceAligner3Test {
 
         assertEquals(3, aligner.getDistance());
         assertTrue(aligner.getOptimalAlignment().stream().allMatch(op -> op.getI() != null && op.getJ() != null));
+        assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
 
     @Test
@@ -43,6 +46,7 @@ public class StructuralSequenceAligner3Test {
 
         assertEquals(0, aligner.getDistance());
         assertTrue(aligner.getOptimalAlignment().isEmpty());
+        assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
 
     @Test
@@ -54,6 +58,7 @@ public class StructuralSequenceAligner3Test {
 
         assertEquals(4, aligner.getDistance());
         assertTrue(aligner.getOptimalAlignment().stream().allMatch(op -> op.getJ() == null));
+        assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
     @Test
     public void optimalAlignmentfor() {
@@ -63,10 +68,12 @@ public class StructuralSequenceAligner3Test {
         StructuralSequenceAligner3 aligner = new StructuralSequenceAligner3(s1, s2);
         Printer.printMatrix(aligner.getMatrix());
         assertEquals(2, aligner.getDistance());
-
+        assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
 
     @Test
+
+
     public void optimalAlignmentfor2() {
         StructuralSequence s1 = new StructuralSequence(new int[]{1,2,3,1,9});
         StructuralSequence s2 = new StructuralSequence(new int[]{1});
@@ -74,6 +81,6 @@ public class StructuralSequenceAligner3Test {
         StructuralSequenceAligner3 aligner = new StructuralSequenceAligner3(s1, s2);
         Printer.printTest(aligner,s1,s2);
         assertEquals(4, aligner.getDistance());
-
+        assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
 }
