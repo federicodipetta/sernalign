@@ -195,14 +195,14 @@ public class RNASecondaryStructureConstructor
 	HashMap<Character, Stack<Integer>> stacks = new HashMap<>();
 	for (int i = 0; i < extendedDotBracketNotation.length(); i++) {
 	    char c = extendedDotBracketNotation.charAt(i);
-	    Character oc = new Character(c);
+	    Character oc = c;
 	    if (isOpeningChar(c)) {
 		if (!stacks.containsKey(oc))
 		    stacks.put(oc, new Stack<Integer>());
-		stacks.get(oc).push(new Integer(i));
+		stacks.get(oc).push(i);
 	    }
 	    if (isClosingChar(c)) {
-		Character opening = new Character(getCorrespondingOpening(c));
+		Character opening = getCorrespondingOpening(c);
 		if (stacks.get(opening) == null
 			|| stacks.get(opening).isEmpty()) {
 		    throw new RNAInputFileParserException(
