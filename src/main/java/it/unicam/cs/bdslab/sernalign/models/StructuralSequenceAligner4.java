@@ -73,7 +73,7 @@ public class StructuralSequenceAligner4 implements IStructuralSequenceAligner{
                 //controllo che le operazioni siano applicabili
                 if(!validateOperation(Operation.Match,xi,yj,i,j))
                     match = Short.MAX_VALUE;
-                if(!validateOperation(Operation.Insert,xi,yj,i,j))
+                  if(!validateOperation(Operation.Insert,xi,yj,i,j))
                     P[i][j] = Short.MAX_VALUE;
                 if(!validateOperation(Operation.Delete,xi,yj,i,j))
                     Q[i][j] = Short.MAX_VALUE;

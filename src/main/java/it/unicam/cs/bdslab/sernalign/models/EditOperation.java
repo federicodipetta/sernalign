@@ -22,6 +22,8 @@
  */
 package it.unicam.cs.bdslab.sernalign.models;
 
+import it.unicam.cs.bdslab.sernalign.models.utils.Operation;
+
 /**
  * A simple class to represent an edit operation. It is a pair (i,j), if i and
  * j are both non-null it is a match/mismatch operation, if i is null,
@@ -49,6 +51,26 @@ public class EditOperation {
 		    "Attempt of creating an edit operation with two gaps");
 	this.i = i;
 	this.j = j;
+    }
+
+    public EditOperation(Operation operation, Integer i, Integer j) {
+        if (i == null && j == null ) throw  new IllegalArgumentException("Attempt of creating an edit operation with two gaps");
+        switch (operation){
+            case Match,Replace:
+                this.i = i;
+                this.j = j;
+                break;
+            case Insert:
+                this.i = null;
+                this.j = j;
+                break;
+            case Delete:
+                this.i = i;
+                this.j = null;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operation");
+        }
     }
 
     /**

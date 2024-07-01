@@ -43,6 +43,13 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
     /* best alignment as a list of edit operations */
     LinkedList<EditOperation> alignment;
 
+    /*
+     * Arrays for the variant of alignment procedure
+     */
+    private Integer[] AlX;
+    private Integer[] AlY;
+    private int h;
+
     /**
      * Construct a minimum alignment to transform a structural sequence into
      * another respecting structural sequences constraints.
@@ -50,7 +57,8 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
      * @param x the first structural sequence to align
      * @param y the second structural sequence to align
      */
-    public StructuralSequenceAligner(StructuralSequence x, StructuralSequence y) {
+    public StructuralSequenceAligner(StructuralSequence x,
+	    StructuralSequence y) {
 	if (x == null || y == null)
 	    throw new NullPointerException(
 		    "Tentativo di definire un aligner tra due sequenze di cui almeno una è null");
@@ -60,6 +68,8 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 	solve();
 	this.alignment = new LinkedList<EditOperation>();
 	traceBack(this.x.size(), this.y.size());
+	// variant
+	this.h = this.align();
     }
 
     private void solve() {
@@ -88,8 +98,7 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 		    // insertion is not possible in this case
 		    valInsertion = Integer.MAX_VALUE;
 		// Deletion
-		if (isCorrectInPosition(this.x.getStructuralSequence()[i - 1],
-			j))
+		if (true)
 		    // deletion is possible
 		    valDeletion = this.m[i - 1][j] + 1;
 		else
@@ -98,8 +107,7 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 		// Match / Mismatch
 		if (isCorrectInPosition(this.y.getStructuralSequence()[j - 1],
 			i)
-			&& isCorrectInPosition(
-				this.x.getStructuralSequence()[i - 1], j))
+			&& true)
 		    // Match / Mismatch is possible
 		    valMatchMismatch = this.m[i - 1][j - 1] + p;
 		else
@@ -142,11 +150,11 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 	}
 	if (i == 0 && j > 0) {
 	    /*
-	     * insert elements into the empty sequence towards y 
+	     * insert elements into the empty sequence towards y
 	     */
-	    for (int k = 1; k <= j ; k++)
-		this.alignment.add(new EditOperation(null,
-			this.y.getStructuralSequence()[k - 1]));
+	    for (int k = 1; k <= j; k++)
+			this.alignment.add(new EditOperation(null,
+				this.y.getStructuralSequence()[k - 1]));
 	    /* Return */
 	    return;
 	} else if (i > 0 && j == 0) {
@@ -154,8 +162,8 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 	     * delete elements of x towards the empty sequence
 	     */
 	    for (int k = i; k > 0; k--)
-		this.alignment.add(new EditOperation(
-			this.x.getStructuralSequence()[k - 1], null));
+			this.alignment.addFirst(new EditOperation(
+				this.x.getStructuralSequence()[k - 1], null));
 	    /* Return */
 	    return;
 	} else { /*
@@ -165,9 +173,9 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 	    int p;
 	    if (this.x.getStructuralSequence()[i - 1] == this.y
 		    .getStructuralSequence()[j - 1])
-		p = 0; // possible match
+			p = 0; // possible match
 	    else
-		p = 1; // match not possible
+			p = 1; // match not possible
 	    int valInsertion;
 	    int valDeletion;
 	    int valMatchMismatch;
@@ -177,14 +185,14 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 		valInsertion = this.m[i][j - 1] + 1;
 	    else
 		// insertion is not possible in this case
-		valInsertion = Integer.MAX_VALUE;
+			valInsertion = Integer.MAX_VALUE;
 	    // Deletion
 	    if (isCorrectInPosition(this.x.getStructuralSequence()[i - 1], j))
 		// deletion is possible
-		valDeletion = this.m[i - 1][j] + 1;
+			valDeletion = this.m[i - 1][j] + 1;
 	    else
 		// deletion is not possible in this case
-		valDeletion = Integer.MAX_VALUE;
+			valDeletion = Integer.MAX_VALUE;
 	    // Match / Mismatch
 	    if (isCorrectInPosition(this.y.getStructuralSequence()[j - 1], i)
 		    && isCorrectInPosition(
@@ -193,13 +201,13 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 		valMatchMismatch = this.m[i - 1][j - 1] + p;
 	    else
 		// Match/Mismatch is not possible in this case
-		valMatchMismatch = Integer.MAX_VALUE;
+			valMatchMismatch = Integer.MAX_VALUE;
 	    // Determine the minimum of the three values
 	    int min = valInsertion;
 	    if (valDeletion < min)
-		min = valDeletion;
+			min = valDeletion;
 	    if (valMatchMismatch < min)
-		min = valMatchMismatch;
+			min = valMatchMismatch;
 	    /*
 	     * Add the correct edit operation to the alignment with the
 	     * following priorities when the value of the minimum is equal in
@@ -229,6 +237,96 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 		traceBack(i, j - 1);
 	    }
 	}
+    }
+
+    /*
+     * Variant of alignment, non-recursive
+     * Domande :
+     *  - cosa ritorna?
+     *  - cosa succede a gli spazini non compilati, nel senso che non è detto
+     * 		che l'allinemanto sia x.l + y.l - 1
+     *  - comunque partendo dal fondo gli allinamenti sono da reversare perchè mi direbbe
+     * 		tipo di prima togliere cose e poi mettere cose ma per le sequenze questo ragionamento non va bene
+     *  - a questo punto non è meglio come prima considerati le domande sopra
+     */
+    private int align() {
+	this.AlX = new Integer[this.x.size() + this.y.size()];
+	this.AlY = new Integer[this.x.size() + this.y.size()];
+	int h = this.x.size() + this.y.size() - 1;
+	int i = this.x.size();
+	int j = this.y.size();
+	while (i > 0 && j > 0) {
+        // not on borders
+        int valInsertion;
+        int valDeletion;
+        int valMatchMismatch;
+        int p;
+        if (this.x.getStructuralSequence()[i - 1] == this.y
+            .getStructuralSequence()[j - 1])
+            p = 0; // possible match
+        else
+            p = 1; // match not possible
+        // Insertion
+        if (isCorrectInPosition(this.y.getStructuralSequence()[j - 1],
+            i))
+            // insertion is possible
+            valInsertion = this.m[i][j - 1] + 1;
+        else
+            // insertion is not possible in this case
+            valInsertion = Integer.MAX_VALUE;
+        // Deletion
+        if (isCorrectInPosition(this.x.getStructuralSequence()[i - 1],
+            j))
+            // deletion is possible
+            valDeletion = this.m[i - 1][j] + 1;
+        else
+            // deletion is not possible in this case
+            valDeletion = Integer.MAX_VALUE;
+        // Match / Mismatch
+        if (isCorrectInPosition(this.y.getStructuralSequence()[j - 1],
+            i)
+            && isCorrectInPosition(
+                this.x.getStructuralSequence()[i - 1], j))
+            // Match/Mismatch is possible
+            valMatchMismatch = this.m[i - 1][j - 1] + p;
+        else
+            // Match/Mismatch is not possible in this case
+            valMatchMismatch = Integer.MAX_VALUE;
+        // Determine the minimum of the three values
+        int min = valInsertion;
+        if (valDeletion < min)
+            min = valDeletion;
+        if (valMatchMismatch < min)
+            min = valMatchMismatch;
+        /*
+         * Add the correct edit operation to the alignment with the
+         * following priorities when the value of the minimum is equal
+         * in the various cases: max priority - match/mismatch, middle
+         * priority - deletion, minimum priority - insertion
+         */
+        if (valMatchMismatch != Integer.MAX_VALUE
+            && valMatchMismatch == min) {
+            // add match / mismatch edit operation
+            AlX[h] = this.x.getStructuralSequence()[i - 1];
+            AlY[h] = this.y.getStructuralSequence()[j - 1];
+            i = i - 1;
+            j = j - 1;
+        } else if (valDeletion != Integer.MAX_VALUE
+            && valDeletion == min) {
+            // add deletion edit operation
+            AlX[h] = this.x.getStructuralSequence()[i - 1];
+            AlY[h] = 0; // gap
+            i = i - 1;
+        } else {
+            // add insertion edit operation
+            AlX[h] = 0; // gap
+            AlY[h] = this.y.getStructuralSequence()[j - 1];
+            j = j - 1;
+        }
+
+        h = h - 1; // decrement current position in the alignment
+    }
+	return h;
     }
 
     private String printSeq(List<Integer> seq) {
@@ -265,7 +363,8 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 		// match/mismatch operation
 		s.append("( " + this.x.getStructuralSequence()[i - 1] + ", "
 			+ this.y.getStructuralSequence()[j - 1] + " )");
-		seq.set(seq.size() - 1, this.y.getStructuralSequence()[j - 1]);
+		seq.set(seq.size() - 1,
+			this.y.getStructuralSequence()[j - 1]);
 		i--;
 		j--;
 		ell--;
@@ -285,28 +384,30 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 	    return "";
 	if (this.alignment.get(ell).getJ() == null) {
 	    // deletion operation
-	    return "x_" + i + " = " + this.x.getStructuralSequence()[i - 1] + " <=  "
-		    + (j * 2 - 1) + "C_" + j + "\n"
+	    return "x_" + i + " = " + this.x.getStructuralSequence()[i - 1]
+		    + " <=  " + (j * 2 - 1) + "C_" + j + "\n"
 		    + printAlignmentConstraints(i - 1, j, ell - 1);
 	}
 
 	if (this.alignment.get(ell).getI() == null) {
 	    // insertion operation
-	    return "y_" + j + " = " + this.y.getStructuralSequence()[j - 1] + " <=  "
-		    + (i * 2 - 1) + "C_" + i + "\n"
+	    return "y_" + j + " = " + this.y.getStructuralSequence()[j - 1]
+		    + " <=  " + (i * 2 - 1) + "C_" + i + "\n"
 		    + printAlignmentConstraints(i, j - 1, ell - 1);
 	}
 
 	// match/mismatch operation
-	return "x_" + i + " = " + this.x.getStructuralSequence()[i - 1] + " <=  " + (j * 2 - 1)
-		+ "C_" + j + " and " + "y_" + j + " = " + this.y.getStructuralSequence()[j - 1] + " <=  "
+	return "x_" + i + " = " + this.x.getStructuralSequence()[i - 1]
+		+ " <=  " + (j * 2 - 1) + "C_" + j + " and " + "y_" + j
+		+ " = " + this.y.getStructuralSequence()[j - 1] + " <=  "
 		+ (i * 2 - 1) + "C_" + i + "\n"
 		+ printAlignmentConstraints(i - 1, j - 1, ell - 1);
     }
 
     public boolean checkOptimalAlignment() {
-	return checkAlignment(this.x.size(), this.y.size(),
-		this.alignment.size() - 1);
+//	return checkAlignment(this.x.size(), this.y.size(),
+//		this.alignment.size() - 1);
+		return new AlignerChecker(this.x, this.y, this.alignment).check();
     }
 
     private boolean checkAlignment(int i, int j, int ell) {
@@ -347,6 +448,29 @@ public class StructuralSequenceAligner implements IStructuralSequenceAligner {
 	    s.append("(" + sI + ", " + sJ + ")");
 	}
 	return s.toString();
+    }
+    
+    
+
+    /**
+     * @return the alX
+     */
+    public Integer[] getAlX() {
+        return AlX;
+    }
+
+    /**
+     * @return the alY
+     */
+    public Integer[] getAlY() {
+        return AlY;
+    }
+
+    /**
+     * @return the h
+     */
+    public int getH() {
+        return h;
     }
 
     public List<EditOperation> getOptimalAlignment() {

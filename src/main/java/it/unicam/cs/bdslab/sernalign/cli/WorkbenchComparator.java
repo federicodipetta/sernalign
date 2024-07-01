@@ -388,7 +388,7 @@ public class WorkbenchComparator {
 				System.out.println("Processing files: " + f1.getName()
 						+ " and " + f2.getName());
 				startTimeNano = System.nanoTime();
-				IStructuralSequenceAligner a = new StructuralSequenceAligner4(art1, art2);
+				IStructuralSequenceAligner a = new StructuralSequenceAlignerHeuristic(art1, art2);
 				elapsedTimeNano = System.nanoTime() - startTimeNano;
 
 				// Write the output file
@@ -417,7 +417,7 @@ public class WorkbenchComparator {
 						.getSize()
 						: art2.getSecondaryStructure()
 						.getSize())
-						+ "," + a.getDistance() + "," + elapsedTimeNano);
+						+ "," + a.getDistance()+ "," + elapsedTimeNano);
 				// End of Internal Loop
 			}
 			// End of External Loop

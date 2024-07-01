@@ -27,6 +27,7 @@ import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureFileReader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

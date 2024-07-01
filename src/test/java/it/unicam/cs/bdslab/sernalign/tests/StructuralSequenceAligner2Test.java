@@ -8,7 +8,6 @@ import it.unicam.cs.bdslab.sernalign.models.utils.Printer;
 import it.unicam.cs.bdslab.sernalign.tests.utlis.RandomSQBuilder;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
@@ -66,7 +65,7 @@ public class StructuralSequenceAligner2Test {
         assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
     @Test
-    public void optimalAlignmentfor() {
+    public void optimalAlignment1() {
         StructuralSequence s1 = new StructuralSequence(new int[]{1, 2, 3,4,5});
         StructuralSequence s2 = new StructuralSequence(new int[]{1,1,2,3,4});
 
@@ -74,6 +73,17 @@ public class StructuralSequenceAligner2Test {
         Printer.printMatrix(aligner.getMatrix());
 
         assertEquals(2, aligner.getDistance());
+        assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
+    }
+    @Test
+    public void optimalAlignment2() {
+        StructuralSequence s1 = new StructuralSequence(new int[]{1, 2});
+        StructuralSequence s2 = new StructuralSequence(new int[]{1,3,1,2});
+
+        StructuralSequenceAligner2 aligner = new StructuralSequenceAligner2(s1, s2);
+        Printer.printTest(aligner,s1,s2);
+
+        assertEquals(3, aligner.getDistance());
         assertTrue(new AlignerChecker(s1,s2,aligner.getOptimalAlignment()).check());
     }
     @Test
@@ -103,7 +113,7 @@ public class StructuralSequenceAligner2Test {
             StructuralSequence s2 = RandomSQBuilder.buildRandomSQ(length2,200);
             //s1 > s2
 
-            StructuralSequenceAligner2 aligner = new StructuralSequenceAligner2(s2,s1);
+            StructuralSequenceAligner aligner = new StructuralSequenceAligner(s2,s1);
             System.out.println("Test "+i);
             Printer.printTest(aligner,s2,s1);
             assertTrue(new AlignerChecker(s2,s1,aligner.getOptimalAlignment()).check());

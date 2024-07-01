@@ -137,10 +137,10 @@ public class StructuralSequenceAligner3 implements IStructuralSequenceAligner{
 
     private boolean validateOperation(Operation operation, int xi,int yj, int i, int j){
         return switch (operation) {
-            case Match,Replace -> ContextSet.contextSetLimit(j)>=xi
-                    && ContextSet.contextSetLimit(actualIndexMatrix[i-1][j-1]) >=yj;
-            case Insert -> ContextSet.contextSetLimit(actualIndexMatrix[i][j-1])>=yj;
-            case Delete -> true;//ContextSet.contextSetOf(actualIndexMatrix[i-1][j]).contains(xi); controllare
+            case Match,Replace -> true//ContextSet.contextSetLimit(actualIndexMatrix[i-1][j-1]+1)>=xi
+                    && ContextSet.contextSetLimit(actualIndexMatrix[i-1][j-1]+1) >=yj;
+            case Insert -> ContextSet.contextSetLimit(actualIndexMatrix[i][j-1]+1)>=yj;
+            case Delete -> true;//ContextSet.contextSetLimit(actualIndexMatrix[i-1][j])>=xi;
         };
 
     }

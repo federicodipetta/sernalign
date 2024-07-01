@@ -1,13 +1,11 @@
 package it.unicam.cs.bdslab.sernalign.tests;
 
 import it.unicam.cs.bdslab.sernalign.models.*;
-import it.unicam.cs.bdslab.sernalign.models.utils.Printer;
 import it.unicam.cs.bdslab.sernalign.tests.utlis.RandomSQBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class StructuralSequenceComparisonTest {

@@ -22,15 +22,15 @@
  */
 package it.unicam.cs.bdslab.sernalign.tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructure;
+import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureFileReader;
+import it.unicam.cs.bdslab.sernalign.models.StructuralSequence;
+import it.unicam.cs.bdslab.sernalign.models.StructuralSequenceAligner;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructure;
-import it.unicam.cs.bdslab.sernalign.models.StructuralSequence;
-import it.unicam.cs.bdslab.sernalign.models.StructuralSequenceAligner;
-import it.unicam.cs.bdslab.sernalign.antlr.RNASecondaryStructureFileReader;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StructuralSequenceAlignerTest {
     
