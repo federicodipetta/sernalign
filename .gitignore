@@ -2,6 +2,7 @@ bin/
 executable-jars/
 tmp/
 .idea
+target
 out
 sernalign.iml
 .settings
