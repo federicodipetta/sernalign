@@ -1,8 +1,11 @@
-@software{SERNA_THESIS,
-  author = {Federico Di Petta, Tesei Luca},
-  doi = {},
-  title = {{Tool for comparison among RNA}},
-  url = {https://github.com/federicodipetta/sernalign},
-  version = {1.0.0},
-  year = {2024}
-}
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Di Petta"
+  given-names: "Federico"
+- family-names: "Tesei"
+  given-names: "Luca"
+title: "Tool for distance among RNA secondary structures"
+version: 1.0.0
+date-released: 2024
+url: "https://github.com/federicodipetta/sernalign"
