@@ -28,9 +28,18 @@ public interface IHeuristics {
             return 0;
         } else if (s1.getStructuralSequence()[i] == s2.getStructuralSequence()[j]) {
             return 1;
-        } else {
+        } else if(similar2(s1.getStructuralSequence()[i], s2.getStructuralSequence()[j], i, j)){
+            return 1;
+        }else {
             return 2;
         }
     };
+
+    private static boolean similar(int xi, int yj, int i, int j) {
+        return Math.abs(xi - yj) <= Math.abs( 2*i-1/xi - 2*j-1/yj);
+    }
+    private static boolean similar2(int xi, int yj, int i, int j) {
+        return Math.abs(xi/(2.0*i-1) - yj/(2.0*j-1)) <= 0.2;
+    }
 
 }

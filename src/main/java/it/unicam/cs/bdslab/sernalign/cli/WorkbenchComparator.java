@@ -232,7 +232,7 @@ public class WorkbenchComparator {
 		PrintStream outputStream = null;
 		PrintStream structuresStream = null;
 		String outputStreamName = inputDirectory.getAbsolutePath() + "/"
-				+ name+"-SernaAlign4.csv";
+				+ name+"-SernalignHeuristic.csv";
 		String structuresStreamName = inputDirectory.getAbsolutePath()
 				+ "/" + name+"-structures.csv";
 

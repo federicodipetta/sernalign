@@ -1,0 +1,8 @@
+@software{SERNA_THESIS,
+  author = {Federico Di Petta, Tesei Luca},
+  doi = {},
+  title = {{Tool for comparison among RNA}},
+  url = {https://github.com/federicodipetta/sernalign},
+  version = {1.0.0},
+  year = {2024}
+}
